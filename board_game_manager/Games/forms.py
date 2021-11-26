@@ -9,7 +9,7 @@ from .models import BoardGame, LendedGames
 class BoardGameForm(forms.ModelForm):
     class Meta:
         model = BoardGame
-        fields = ['name', 'description', 'max_player_count', 'min_player_count']
+        fields = ['name', 'game_image','description', 'max_player_count', 'min_player_count']
         widgets = {'description': forms.Textarea(attrs={'cols': 80})}
 
 

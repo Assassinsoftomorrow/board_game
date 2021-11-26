@@ -3,7 +3,7 @@
 {% block content %}
   <p>Add a new game:</p>
     
-  <form action="{% url 'Games:new_board_game' %}" method='post'>
+  <form action="{% url 'Games:new_game' %}" method='post'>
     {% csrf_token %}
     {{ form.as_p }}
     <button name="submit">Add game</button>

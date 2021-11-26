@@ -1,7 +1,8 @@
 from django.shortcuts import render, redirect
 from .models import BoardGame, LendedGames
-from .forms import BoardGameForm
+from .forms import *
 from django.contrib.auth.decorators import login_required
+from django.http import HttpResponse
 
 # Create your views here.
 
@@ -51,7 +52,7 @@ def new_game(request):
 
     # Display a blank or invalid form
     context = {'form': form}
-    return render(request, 'Games:/new_board_game', context)
+    return render(request, 'Games/new_board_game.html', context)
 
 
 @login_required
@@ -76,6 +77,28 @@ def edit_game(request, game_id):
 @login_required
 def loan_game(request, game_id):
     game = BoardGame.objects
+
+
+@login_required
+def image_view(request):
+    if request.method == 'POST':
+        form = BoardGameForm(request.POST, request.FILES)
+
+        if form.is_valid():
+            form.save()
+            return redirect('success')
+        
+        else:
+            form = BoardGameForm()
+
+        context = {'form': form}
+        return render(request, 'image.html', context)
+
+
+@login_required
+def success(request):
+    return HttpResponse('successfully uploaded')
+
 '''
 Games
 @user

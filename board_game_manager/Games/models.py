@@ -6,6 +6,7 @@ from django.contrib.auth.models import User
 class BoardGame(models.Model):
     """A board game model"""
     name = models.CharField(max_length=200)
+    game_image = models.ImageField(upload_to='images/', default='default.jpg')
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
     description = models.TextField()
     date_added = models.DateTimeField(auto_now_add=True)
