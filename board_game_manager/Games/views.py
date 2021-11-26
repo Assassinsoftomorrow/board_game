@@ -1,10 +1,81 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from .models import BoardGame, LendedGames
+from .forms import BoardGameForm
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 
 def index(request):
     """The home page for Learning Log."""
     return render(request, 'Games/index.html')
+
+
+@login_required
+def games(request):
+    games = BoardGame.objects.order_by('name')
+    context = {'board_games' : games}
+    return render(request, 'INSERT HTML HERE', context)
+
+
+@login_required
+def game(request, game_id):
+    """Show a single game and its log."""
+    game = BoardGame.objects.get(id=game_id)
+
+    #BoardGames = game.BoardGame_set.order_by('-date_added')
+    context = {'board_games' : games}
+    return render(request, 'INSERT HTML HERE', context)
+
+
+@login_required
+def game_log(request):
+    log = LendedGames.objects.order_by('date_lended')
+    context = {'' : log}
+    return render(request, 'INSERT HTML HERE', context)
+
+
+@login_required
+def new_game(request):
+    ''' Add a new game '''
+    if request.method != 'POST':
+        # No data submitted; create a blank form
+        form = BoardGameForm()
+    else:
+        # POST data submitted; process data.
+        form = BoardGameForm(data=request.POST)
+        if form.is_valid():
+            new_game = form.save(commit=False)
+            new_game.owner = request.user
+            new_game.save()
+            return redirect('INSERT PATH HERE')
+
+    # Display a blank or invalid form
+    context = {'form': form}
+    return render(request, 'INSERT HTML HERE', context)
+
+
+@login_required
+def edit_game(request, game_id):
+    """Edit an existing game."""
+    game = BoardGame.objects.filter(owner=request.user).get(id=game_id)
+
+    if request.method != 'POST':
+        # Initial request; pre-fill form with the current BoardGame.
+        form = BoardGameForm(instance=game)
+    else:
+        # POST data submitted; process data.
+        form = BoardGameForm(instance=game, data=request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('INSERT PATH HERE', book_id=game.id)
+
+    context = {'board_game': game, 'form': form}
+    return render(request, 'INSERT HTML HERE', context)
+
+
+@login_required
+def loan_game(request, game_id):
+    game = BoardGame.objects
 '''
 Games
 @user
