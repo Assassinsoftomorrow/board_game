@@ -5,12 +5,9 @@
 {% endblock page_header %}
 
 {% block content %}
-  <p>
-    <a href="{% url 'Games:new_game' game.id %}">Add new game</a>
-  </p>
 
   <ul>
-  {% for game in games %}
+  {% for game in logs %}
     <div class="card mb-3">
       <h4 class="card-header">
         {{ game.date_added|date:'M d, Y H:i' }}

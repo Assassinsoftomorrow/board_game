@@ -9,7 +9,10 @@
         You can now add your board games, loan new 
 	and know more about the games.</p>
 
-    <a class="btn btn-lg btn-primary" href="{% url 'Users:register' %}"
-        role="button">Register &raquo;</a>
+  {% if user.is_authenticated %}
+  {% else %}
+      <a class="btn btn-lg btn-primary" href="{% url 'Users:register' %}"
+          role="button">Register &raquo;</a>
+  {% endif %}
   </div>
 {% endblock page_header %}

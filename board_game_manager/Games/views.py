@@ -14,7 +14,7 @@ def index(request):
 @login_required
 def games(request):
     games = BoardGame.objects.order_by('name')
-    context = {'board_games' : games}
+    context = {'games' : games}
     return render(request, 'Games/Games_page.html', context)
 
 
@@ -23,15 +23,15 @@ def game(request, game_id):
     """Show a single game and its log."""
     game = BoardGame.objects.get(id=game_id)
 
-    BoardGames = game.BoardGame_set.order_by('-date_added')
-    context = {'board_games' : games}
+    game_log = game.lendedgames_set.order_by('-date_lended')
+    context = {'logs' : game_log}
     return render(request, 'Games/Board_Game_page.html', context)
 
 
 @login_required
 def game_log(request):
     log = LendedGames.objects.order_by('date_lended')
-    context = {'' : log}
+    context = {'logs' : log}
     return render(request, 'INSERT HTML HERE', context)
 
 
@@ -47,6 +47,7 @@ def new_game(request):
         if form.is_valid():
             new_game = form.save(commit=False)
             new_game.owner = request.user
+            new_game.loaned = False
             new_game.save()
             return redirect('Games:games')
 
