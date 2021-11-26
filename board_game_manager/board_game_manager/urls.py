@@ -21,5 +21,5 @@ urlpatterns = [
 # Includes the User app's urls.
     path('users/', include('Users.urls')),
 # Includes the Game app's urls.
-    path('games/', include('Games.urls')),
+    path('', include('Games.urls')),
 ]
