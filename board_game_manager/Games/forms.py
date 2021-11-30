@@ -13,6 +13,12 @@ class BoardGameForm(forms.ModelForm):
         widgets = {'description': forms.Textarea(attrs={'cols': 80})}
 
 
+class LoaningForm(forms.ModelForm):
+    class Meta:
+        model = LendedGames
+        fields = ['time_period']
+
+
 
 '''
 Form for adding game

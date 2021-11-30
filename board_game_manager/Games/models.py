@@ -24,12 +24,12 @@ class LendedGames(models.Model):
     """A game log model"""
     game = models.ForeignKey(BoardGame, on_delete=models.CASCADE)
     date_lended = models.DateTimeField(auto_now_add=True)
-    time_period = models.DateTimeField(auto_now=True)
+    time_period = models.DateTimeField()
     lender = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
         """Return a string representation of the model"""
-        return self.book.name + " - review"
+        return self.game.name
 
 '''
 Board games

@@ -77,7 +77,23 @@ def edit_game(request, game_id):
 
 @login_required
 def loan_game(request, game_id):
-    game = BoardGame.objects
+    game = BoardGame.objects.get(id=game_id)
+    
+    if request.method != 'POST':
+        # Initial request; pre-fill form with the current BoardGame.
+        form = LoaningForm()
+    else:
+        # POST data submitted; process data.
+        form = LoaningForm(data=request.POST)
+        if form.is_valid():
+            new_entry = form.save(commit=False)
+            new_entry.loaned = True
+            new_entry.lender = request.user
+            new_entry.save()
+            return redirect('INSERT PATH HERE', book_id=game.id)
+
+    context = {'board_game': game, 'form': form}
+    return render(request, 'INSERT HTML HERE', context)
 
 
 @login_required
