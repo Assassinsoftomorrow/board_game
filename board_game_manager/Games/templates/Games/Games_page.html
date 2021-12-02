@@ -14,7 +14,9 @@
       <li><h3>No board games have been added yet.</h3></li>
     {% endfor %}
   </ul>
-
-  <h3><a href="{% url 'Games:new_game' %}">Add a new Board Game</a></h3>
+  <h5>
+    <a href="{% url 'Games:new_game' %}">Add a new Game</a>
+  </h5>
+  
 
 {% endblock content %}
