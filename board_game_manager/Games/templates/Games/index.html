@@ -10,6 +10,8 @@
 	and know more about the games.</p>
 
   {% if user.is_authenticated %}
+      <a class="btn btn-lg btn-primary" href="{% url 'Users:logout' %}"
+          role="button">Log out &raquo;</a>
   {% else %}
       <a class="btn btn-lg btn-primary" href="{% url 'Users:register' %}"
           role="button">Register &raquo;</a>

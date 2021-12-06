@@ -24,7 +24,7 @@ def game(request, game_id):
     game = BoardGame.objects.get(id=game_id)
 
     game_log = game.lendedgames_set.order_by('-date_lended')
-    context = {'logs' : game_log}
+    context = {'game' : game, 'logs' : game_log}
     return render(request, 'Games/Board_Game_page.html', context)
 
 

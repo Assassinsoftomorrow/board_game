@@ -2,15 +2,16 @@
 
 {% block page_header %}
   <h3>{{ game }}</h3>
+  <! -- game.description for description etc.  -- >
 {% endblock page_header %}
 
 {% block content %}
 
   <ul>
-  {% for game in logs %}
+  {% for log in logs %}
     <div class="card mb-3">
       <h4 class="card-header">
-        {{ game.date_added|date:'M d, Y H:i' }}
+        {{ log.date_added|date:'M d, Y H:i' }}
         <small><a href="{% url 'Games:edit_game' game.id %}">Edit Board Game Details</a></small>
       </h4>
       <div class="card-body">
