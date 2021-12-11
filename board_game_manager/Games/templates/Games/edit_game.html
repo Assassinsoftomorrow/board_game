@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+{% extends "Games/base.html" %}
+{% block content %}
+<body>
+    <p><a href="{% url 'Games:game' game.id %}">{{ game }}</a></p>
+    
+    <p>Edit entry:</p>
+      
+    <form action="{% url 'Games:edit_game' game.id %}" method='post'>
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button name="submit">Save changes</button>
+    </form>
+</body>
+{% endblock content %}
+
+</html>

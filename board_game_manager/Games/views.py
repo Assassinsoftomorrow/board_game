@@ -69,10 +69,10 @@ def edit_game(request, game_id):
         form = BoardGameForm(instance=game, data=request.POST)
         if form.is_valid():
             form.save()
-            return redirect('INSERT PATH HERE', book_id=game.id)
+            return redirect('Games:games', book_id=game.id)
 
     context = {'board_game': game, 'form': form}
-    return render(request, 'INSERT HTML HERE', context)
+    return render(request, 'Games/edit_game.html', context)
 
 
 @login_required

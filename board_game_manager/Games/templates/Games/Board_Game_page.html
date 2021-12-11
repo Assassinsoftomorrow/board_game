@@ -1,8 +1,24 @@
 {% extends 'Games/base.html' %}
+{% load static %}
 
 {% block page_header %}
-  <h3>{{ game }}</h3>
-  <! -- game.description for description etc.  -- >
+  <div class="jumbotron shadow-sm">
+    <h2 class="display-4"><center>{{ game }}</center></h2>
+    <div class="container">
+      <h2>Description</h2>
+      {{ game.description}}</div>
+
+    <div class="container"><br><b>Owner: </b>{{ game.owner }}</div>
+    <div class="container"><b>Date: </b> {{ game.date_added }}</div>
+    <div class="container"><b>Minimum</b> {{ game.min_player_count}}</div>
+    <div class="container"><b>Maximum</b> {{ game.max_player_count}}</div>
+    <br>
+    
+    <div class="container"><b>Loaned</b> {{ game.loaned}}</div>
+  </div>
+  <p><a href="{% url 'Games:edit_game' game.id %}">Edit Board Game Details</a></p>
+
+  
 {% endblock page_header %}
 
 {% block content %}
@@ -19,7 +35,10 @@
       </div>
     </div>
   {% empty %}
-    <p>There is no information for this game yet.</p>
+    <p>
+      <br><br><br><br><br>
+      There is no log for this game yet.
+    </p>
   {% endfor %}
 
 {% endblock content %}
