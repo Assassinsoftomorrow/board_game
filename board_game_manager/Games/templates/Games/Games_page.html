@@ -5,17 +5,19 @@
 {% endblock page_header %}
 
 {% block content %}
-  <div>
+  <div style="background-color: seashell;">
     {% for game in games %}
-      <li class="container"><p class="Geneva">
-        <a href="{% url 'Games:game' game.id %}">{{ game }}</a>
+      <li class="container">
+        <h4>
+          <a style="color: rgb(196, 15, 172);" href="{% url 'Games:game' game.id %}">{{ game }}</a>
+        </h4>
       </p></li>
     {% empty %}
       <li><p>No board games have been added yet.</p></li>
     {% endfor %}
   </div>
   <h5>
-    <a href="{% url 'Games:new_game' %}">Add a new Game</a>
+    <a class="block"; style="color: red; background-color: cornsilk;" href="{% url 'Games:new_game' %}">Add a new Game</a>
   </h5>
   
 
