@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
-
-
+from django.forms import widgets
+from datetime import datetime
 
 class BoardGame(models.Model):
     """A board game model"""
@@ -11,9 +11,12 @@ class BoardGame(models.Model):
     description = models.TextField()
     date_added = models.DateTimeField(auto_now_add=True)
     date_modified = models.DateTimeField(auto_now=True)
-    loaned = models.BooleanField()
+    loaned = models.BooleanField(default=False)
     min_player_count = models.IntegerField()
     max_player_count = models.IntegerField()
+
+    def bool(self, val):
+       self.loaned = val
 
     def __str__(self):
         """Return a string representation of the model"""
@@ -22,6 +25,7 @@ class BoardGame(models.Model):
 
 class LendedGames(models.Model):
     """A game log model"""
+    
     game = models.ForeignKey(BoardGame, on_delete=models.CASCADE)
     date_lended = models.DateTimeField(auto_now_add=True)
     time_period = models.DateTimeField()
@@ -30,6 +34,7 @@ class LendedGames(models.Model):
     def __str__(self):
         """Return a string representation of the model"""
         return self.game.name
+
 
 '''
 Board games

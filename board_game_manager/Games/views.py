@@ -47,7 +47,6 @@ def new_game(request):
         if form.is_valid():
             new_game = form.save(commit=False)
             new_game.owner = request.user
-            new_game.loaned = False
             new_game.save()
             return redirect('Games:games')
 
@@ -72,28 +71,30 @@ def edit_game(request, game_id):
             return redirect('Games:games', book_id=game.id)
 
     context = {'board_game': game, 'form': form}
-    return render(request, 'Games/edit_game.html', context)
+    return render(request, 'INSERT HTML HERE', context)
 
 
 @login_required
-def loan_game(request, game_id):
-    game = BoardGame.objects.get(id=game_id)
+def loan_game(request):
+    #game = BoardGame.objects.get(id=game_id)
     
     if request.method != 'POST':
         # Initial request; pre-fill form with the current BoardGame.
         form = LoaningForm()
+        game = BoardGame()
     else:
         # POST data submitted; process data.
         form = LoaningForm(data=request.POST)
+        game = BoardGame()
         if form.is_valid():
             new_entry = form.save(commit=False)
-            new_entry.loaned = True
+            game.bool(True)
             new_entry.lender = request.user
             new_entry.save()
-            return redirect('INSERT PATH HERE', book_id=game.id)
+            return redirect('Games:games')
 
     context = {'board_game': game, 'form': form}
-    return render(request, 'INSERT HTML HERE', context)
+    return render(request, 'Games/Loan.html', context)
 
 
 @login_required

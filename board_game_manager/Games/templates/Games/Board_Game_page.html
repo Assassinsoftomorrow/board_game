@@ -16,19 +16,18 @@
     
     <div class="container"><b>Loaned</b> {{ game.loaned}}</div>
   </div>
-  <p><a href="{% url 'Games:edit_game' game.id %}">Edit Board Game Details</a></p>
-
+  <p><a >Edit Board Game Details</a></p>
   
 {% endblock page_header %}
 
 {% block content %}
 
-  <ul>
+
+  <ul> 
   {% for log in logs %}
     <div class="card mb-3">
       <h4 class="card-header">
         {{ log.date_added|date:'M d, Y H:i' }}
-        <small><a href="{% url 'Games:edit_game' game.id %}">Edit Board Game Details</a></small>
       </h4>
       <div class="card-body">
         {{ game.text|linebreaks }}
