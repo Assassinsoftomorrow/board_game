@@ -1,3 +1,4 @@
+from datetime import datetime, timedelta, date
 from django.shortcuts import render, redirect
 from .models import BoardGame, LendedGames
 from .forms import *
@@ -22,17 +23,16 @@ def games(request):
 def game(request, game_id):
     """Show a single game and its log."""
     game = BoardGame.objects.get(id=game_id)
+    game_log = game.logs.all().order_by('-date_lended')
+    #game_log = game.logs.all()
 
-    game_log = game.lendedgames_set.order_by('-date_lended')
+    if game.loaned:
+        end_date = game_log[0].date_lended.date()+timedelta(days=game_log[0].time_period)
+        if end_date - date.today() < timedelta(days=0):
+            game.loaned = False
+
     context = {'game' : game, 'logs' : game_log}
     return render(request, 'Games/Board_Game_page.html', context)
-
-
-@login_required
-def game_log(request):
-    log = LendedGames.objects.order_by('date_lended')
-    context = {'logs' : log}
-    return render(request, 'INSERT HTML HERE', context)
 
 
 @login_required
@@ -68,32 +68,32 @@ def edit_game(request, game_id):
         form = BoardGameForm(instance=game, data=request.POST)
         if form.is_valid():
             form.save()
-            return redirect('Games:games', book_id=game.id)
+            return redirect('Games:games', game_id=game.id)
 
-    context = {'board_game': game, 'form': form}
+    context = {'game': game, 'form': form}
     return render(request, 'INSERT HTML HERE', context)
 
 
 @login_required
-def loan_game(request):
-    #game = BoardGame.objects.get(id=game_id)
+def loan_game(request, game_id):
+    game = BoardGame.objects.get(id=game_id)
     
     if request.method != 'POST':
         # Initial request; pre-fill form with the current BoardGame.
         form = LoaningForm()
-        game = BoardGame()
     else:
         # POST data submitted; process data.
         form = LoaningForm(data=request.POST)
-        game = BoardGame()
         if form.is_valid():
+            game.loaned = True
+            game.save()
             new_entry = form.save(commit=False)
-            game.bool(True)
+            new_entry.game = game
             new_entry.lender = request.user
             new_entry.save()
             return redirect('Games:games')
 
-    context = {'board_game': game, 'form': form}
+    context = {'game': game, 'form': form}
     return render(request, 'Games/Loan.html', context)
 
 

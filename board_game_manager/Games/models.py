@@ -15,9 +15,6 @@ class BoardGame(models.Model):
     min_player_count = models.IntegerField()
     max_player_count = models.IntegerField()
 
-    def bool(self, val):
-       self.loaned = val
-
     def __str__(self):
         """Return a string representation of the model"""
         return self.name
@@ -26,9 +23,9 @@ class BoardGame(models.Model):
 class LendedGames(models.Model):
     """A game log model"""
     
-    game = models.ForeignKey(BoardGame, on_delete=models.CASCADE)
+    game = models.ForeignKey(BoardGame, on_delete=models.CASCADE, related_name='logs')
     date_lended = models.DateTimeField(auto_now_add=True)
-    time_period = models.DateTimeField()
+    time_period = models.IntegerField()
     lender = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):

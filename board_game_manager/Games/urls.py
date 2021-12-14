@@ -11,7 +11,7 @@ urlpatterns= [
     # game details
     path('Games/<int:game_id>', views.game, name='game'),
     # loan game page
-    path('loan_game/', views.loan_game, name='loan_game'),
+    path('loan_game/<int:game_id>', views.loan_game, name='loan_game'),
     # add new game
     path('new_board_game/', views.new_game, name='new_game'),
     path('image_upload', views.image_view, name='image_upload'),

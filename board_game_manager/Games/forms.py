@@ -16,7 +16,7 @@ class BoardGameForm(forms.ModelForm):
 class LoaningForm(forms.ModelForm):
     class Meta:
         model = LendedGames
-        fields = ['time_period', 'game']
+        fields = ['time_period']
 
 
 

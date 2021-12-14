@@ -18,7 +18,7 @@
   </div>
   <div class="container">
     <h5 style="font-variant: small-caps;">
-      <a href="{% url 'Games:loan_game' %}"><b>Loan Games</b></a>
+      <a href="{% url 'Games:loan_game' game.id %}"><b>Loan Games</b></a>
     </h5>
   </div>
   <p><a >Edit Board Game Details</a></p>
@@ -32,10 +32,10 @@
   {% for log in logs %}
     <div class="card mb-3">
       <h4 class="card-header">
-        {{ log.date_added|date:'M d, Y H:i' }}
+        {{ log.date_added }}
       </h4>
       <div class="card-body">
-        {{ game.text|linebreaks }}
+        {{ log.lender }}
       </div>
     </div>
   {% empty %}
