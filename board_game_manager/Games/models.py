@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.forms import widgets
 from datetime import datetime
+from django.db.models import DurationField
 
 class BoardGame(models.Model):
     """A board game model"""
@@ -25,7 +26,7 @@ class LendedGames(models.Model):
     
     game = models.ForeignKey(BoardGame, on_delete=models.CASCADE, related_name='logs')
     date_lended = models.DateTimeField(auto_now_add=True)
-    time_period = models.IntegerField()
+    time_period = models.DurationField()
     lender = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
