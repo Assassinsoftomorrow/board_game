@@ -19,12 +19,12 @@
   <div class="row" style="display: flex; justify-content: :space-between;">
     <div class="container">
       <h5 style="font-variant: small-caps; padding-left: 50px; padding-right: 50px;">
-        <a href="{% url 'Games:loan_game' %}"><b>Loan Games</b></a>
+        <a href="{% url 'Games:loan_game' game.id %}"><b>Loan Games</b></a>
       </h5>
     </div>
     <div class="container">
       <h5 style="font-variant: small-caps; padding-left: 50px; padding-right: 50px;">
-        <a href="{% url 'Games:edit_game' %}"><b>Edit Board Games</b></a>
+        <a href="{% url 'Games:edit_game' game.id %}"><b>Edit Board Games</b></a>
       </h5>
     </div>
   </div>
