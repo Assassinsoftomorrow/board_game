@@ -71,7 +71,7 @@ def edit_game(request, game_id):
             return redirect('Games:games', book_id=game.id)
 
     context = {'board_game': game, 'form': form}
-    return render(request, 'INSERT HTML HERE', context)
+    return render(request, 'Games/edit_games.html', context)
 
 
 @login_required
