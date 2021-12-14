@@ -17,14 +17,3 @@
   </div>
   
 {% endblock page_header %}
-
-{% block content %}
-  <div class="container">
-    <h3 class="jumbotron" style="text-align: center; width: 50%; height:20%; background: wheat;">
-      <a style="color: black;" href="{% url 'Games:games' %}">Board Game List</a>
-    </h3>
-    <h3 class="jumbotron" style="text-align: center; width: 50%; height: 20%; background-color: wheat;">
-      <a style="color: black;" href="{% url 'Users:logout'%}">Logout</a>
-    </h3>
-  </div>
-{% endblock content%}
