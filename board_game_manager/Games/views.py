@@ -23,14 +23,7 @@ def games(request):
 def game(request, game_id):
     """Show a single game and its log."""
     game = BoardGame.objects.get(id=game_id)
-    durations = LendedGames.time_period
     game_log = game.logs.all().order_by('-date_lended')
-    #game_log = game.logs.all()
-
-#    if game.loaned:
-#        end_date = game_log[0].date_lended.date()+durations
-#        if end_date - date.today() < timedelta(days=0):
-#            game.loaned = False
 
     context = {'game' : game, 'logs' : game_log}
     return render(request, 'Games/Board_Game_page.html', context)
